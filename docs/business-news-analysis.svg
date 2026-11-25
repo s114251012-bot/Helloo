@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1900" viewBox="0 0 1000 1900" role="img" aria-labelledby="title desc">
+  <title id="title">Business News Analysis to Product MVP</title>
+  <desc id="desc">A portrait, process-oriented diagram for analyzing business news, validating a product opportunity, documenting requirements, and delivering an MVP.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7892A8"/>
+    </marker>
+    <style>
+      text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #243746; }
+      .title { font-size: 34px; font-weight: 750; letter-spacing: .2px; }
+      .subtitle { font-size: 17px; fill: #5D7180; }
+      .section { font-size: 21px; font-weight: 700; }
+      .label { font-size: 16px; font-weight: 700; }
+      .body { font-size: 15px; fill: #405564; }
+      .small { font-size: 13px; fill: #5D7180; }
+      .stepnum { font-size: 17px; font-weight: 750; fill: #FFFFFF; text-anchor: middle; dominant-baseline: middle; }
+      .card { fill: #FFFFFF; stroke: #D7E2EA; stroke-width: 2; }
+      .subcard { fill: #F7FAFC; stroke: #E1E9EF; stroke-width: 1.5; }
+      .line { fill: none; stroke: #7892A8; stroke-width: 3; marker-end: url(#arrow); }
+      .divider { stroke: #E4EBF0; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="1900" fill="#F4F8FA"/>
+  <rect x="34" y="30" width="932" height="1840" rx="28" fill="#FBFCFD" stroke="#E3EBF0" stroke-width="2"/>
+
+  <text x="500" y="88" text-anchor="middle" class="title">Business News Analysis → Product MVP</text>
+  <text x="500" y="121" text-anchor="middle" class="subtitle">EMI Term Project · 11/25/26 · A systematic, evidence-led workflow</text>
+
+  <!-- Starting point -->
+  <rect x="120" y="151" width="760" height="82" rx="18" fill="#EAF3F8" stroke="#C8DCE8" stroke-width="2"/>
+  <text x="500" y="183" text-anchor="middle" class="label">START · Select a business-news item</text>
+  <text x="500" y="208" text-anchor="middle" class="body">Capture the source, date, context, and the central claim or event.</text>
+  <path d="M500 233 V258" class="line"/>
+
+  <!-- Analysis -->
+  <rect x="90" y="270" width="820" height="470" rx="22" class="card"/>
+  <rect x="90" y="270" width="820" height="58" rx="22" fill="#EAF3F8"/>
+  <path d="M90 306 V328 H910 V306" fill="#EAF3F8"/>
+  <circle cx="128" cy="299" r="21" fill="#477D9B"/><text x="128" y="299" class="stepnum">1</text>
+  <text x="165" y="306" class="section">Analyze the issue</text>
+  <text x="132" y="363" class="body">Break the news story into clear, answerable parts.</text>
+
+  <rect x="130" y="388" width="350" height="125" rx="15" class="subcard"/>
+  <text x="154" y="420" class="label">Define the problem</text>
+  <text x="154" y="449" class="body">• What happened, and to whom?</text>
+  <text x="154" y="476" class="body">• What demand or need is described?</text>
+  <text x="154" y="501" class="body">• What question should the analysis answer?</text>
+
+  <rect x="500" y="388" width="370" height="125" rx="15" class="subcard"/>
+  <text x="524" y="420" class="label">Map the parts</text>
+  <text x="524" y="449" class="body">• People, organizations, and market</text>
+  <text x="524" y="476" class="body">• Products, services, and components</text>
+  <text x="524" y="501" class="body">• Causes, effects, and open questions</text>
+
+  <rect x="130" y="533" width="740" height="79" rx="15" fill="#F3F8FB" stroke="#D7E5ED" stroke-width="1.5"/>
+  <text x="154" y="564" class="label">Investigate with evidence</text>
+  <text x="154" y="591" class="body">Check reliable sources; note evidence, uncertainty, and potential relationships between parts.</text>
+
+  <rect x="130" y="631" width="740" height="75" rx="15" fill="#EDF6F4" stroke="#D2E7E1" stroke-width="1.5"/>
+  <text x="154" y="661" class="label">Recombine findings → insights</text>
+  <text x="154" y="687" class="body">Use a mind map or structured outline to connect evidence and explain what it means.</text>
+  <path d="M500 740 V765" class="line"/>
+
+  <!-- Market and product opportunity -->
+  <rect x="90" y="777" width="820" height="285" rx="22" class="card"/>
+  <rect x="90" y="777" width="820" height="58" rx="22" fill="#EEF4FA"/>
+  <path d="M90 813 V835 H910 V813" fill="#EEF4FA"/>
+  <circle cx="128" cy="806" r="21" fill="#6386A5"/><text x="128" y="806" class="stepnum">2</text>
+  <text x="165" y="813" class="section">Assess market, product, and value</text>
+
+  <rect x="130" y="860" width="220" height="102" rx="15" fill="#F7FAFC" stroke="#D7E2EA" stroke-width="1.5"/>
+  <text x="240" y="891" text-anchor="middle" class="label">DEMAND</text>
+  <text x="240" y="919" text-anchor="middle" class="body">What do consumers</text>
+  <text x="240" y="941" text-anchor="middle" class="body">need or want?</text>
+  <rect x="390" y="860" width="220" height="102" rx="15" fill="#F7FAFC" stroke="#D7E2EA" stroke-width="1.5"/>
+  <text x="500" y="891" text-anchor="middle" class="label">SUPPLY</text>
+  <text x="500" y="919" text-anchor="middle" class="body">What can producers</text>
+  <text x="500" y="941" text-anchor="middle" class="body">provide?</text>
+  <rect x="650" y="860" width="220" height="102" rx="15" fill="#F7FAFC" stroke="#D7E2EA" stroke-width="1.5"/>
+  <text x="760" y="891" text-anchor="middle" class="label">VALUE</text>
+  <text x="760" y="919" text-anchor="middle" class="body">Does the solution</text>
+  <text x="760" y="941" text-anchor="middle" class="body">benefit consumers?</text>
+  <path d="M350 911 H383" class="line"/><path d="M610 911 H643" class="line"/>
+  <text x="500" y="1000" text-anchor="middle" class="body">A product or service connects producers and consumers through the market.</text>
+  <text x="500" y="1028" text-anchor="middle" class="small">Possible forms: app · software · website · SaaS (Software as a Service)</text>
+  <path d="M500 1062 V1087" class="line"/>
+
+  <!-- Decision criteria -->
+  <rect x="90" y="1099" width="820" height="204" rx="22" class="card"/>
+  <rect x="90" y="1099" width="820" height="58" rx="22" fill="#F2F5FA"/>
+  <path d="M90 1135 V1157 H910 V1135" fill="#F2F5FA"/>
+  <circle cx="128" cy="1128" r="21" fill="#7184A6"/><text x="128" y="1128" class="stepnum">3</text>
+  <text x="165" y="1135" class="section">Evaluate the proposed solution</text>
+  <rect x="130" y="1180" width="350" height="88" rx="15" fill="#EDF6F4" stroke="#D2E7E1" stroke-width="1.5"/>
+  <text x="154" y="1212" class="label">✓ Effectiveness</text>
+  <text x="154" y="1242" class="body">Does it reach the intended goal?</text>
+  <rect x="500" y="1180" width="370" height="88" rx="15" fill="#F5F7FA" stroke="#DCE4EB" stroke-width="1.5"/>
+  <text x="524" y="1212" class="label">Efficiency</text>
+  <text x="524" y="1242" class="body">Can it reduce input or increase useful output?</text>
+  <text x="500" y="1284" text-anchor="middle" class="small">First establish that it works; then improve how well resources are used.</text>
+  <path d="M500 1303 V1328" class="line"/>
+
+  <!-- Requirements -->
+  <rect x="90" y="1340" width="820" height="254" rx="22" class="card"/>
+  <rect x="90" y="1340" width="820" height="58" rx="22" fill="#F7F1E8"/>
+  <path d="M90 1376 V1398 H910 V1376" fill="#F7F1E8"/>
+  <circle cx="128" cy="1369" r="21" fill="#A38454"/><text x="128" y="1369" class="stepnum">4</text>
+  <text x="165" y="1376" class="section">Document the requirements · PRD</text>
+  <text x="130" y="1434" class="body">Translate the analysis into a Product Requirements Document (PRD).</text>
+  <rect x="130" y="1454" width="220" height="91" rx="14" class="subcard"/>
+  <text x="150" y="1484" class="label">Problem &amp; users</text>
+  <text x="150" y="1512" class="small">Need, audience, goals</text>
+  <rect x="390" y="1454" width="220" height="91" rx="14" class="subcard"/>
+  <text x="410" y="1484" class="label">Product &amp; functions</text>
+  <text x="410" y="1512" class="small">Scope, features, requirements</text>
+  <rect x="650" y="1454" width="220" height="91" rx="14" class="subcard"/>
+  <text x="670" y="1484" class="label">Verification</text>
+  <text x="670" y="1512" class="small">Acceptance and test criteria</text>
+  <text x="500" y="1573" text-anchor="middle" class="small">Include evidence, assumptions, risks, and how success will be measured.</text>
+  <path d="M500 1594 V1619" class="line"/>
+
+  <!-- Build, deploy, learn -->
+  <rect x="90" y="1631" width="820" height="173" rx="22" class="card"/>
+  <rect x="90" y="1631" width="820" height="58" rx="22" fill="#EAF3F8"/>
+  <path d="M90 1667 V1689 H910 V1667" fill="#EAF3F8"/>
+  <circle cx="128" cy="1660" r="21" fill="#477D9B"/><text x="128" y="1660" class="stepnum">5</text>
+  <text x="165" y="1667" class="section">Build, verify, deploy, and improve</text>
+  <text x="130" y="1725" class="body">Define a small MVP → build front end / back end → test against PRD → deploy → collect feedback.</text>
+  <text x="130" y="1755" class="body">Share work through a team session and handoff notes; use findings to prioritize the next iteration.</text>
+  <rect x="130" y="1770" width="740" height="1" fill="#E4EBF0"/>
+  <text x="500" y="1790" text-anchor="middle" class="small">LOOP: feedback → renewed analysis → updated requirements → improved product</text>
+
+  <text x="500" y="1836" text-anchor="middle" class="small">Working principle: systematic · structured · process-oriented · evidence-led</text>
+</svg>
