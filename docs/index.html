@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f8fa">
+  <meta name="description" content="A bilingual, responsive guide to the Business News Analysis term project and product development workflow.">
+  <title>Business News Analysis | EMI Term Project</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f7f9;
+      --surface: #ffffff;
+      --surface-soft: #f5f9fb;
+      --text: #203342;
+      --muted: #5b6d79;
+      --line: #dce6ec;
+      --accent: #427c99;
+      --accent-strong: #285d78;
+      --accent-soft: #e8f2f7;
+      --green-soft: #edf6f2;
+      --gold-soft: #f8f3e9;
+      --shadow: 0 14px 40px rgba(32, 58, 74, .08);
+      --header-height: 68px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #111a20;
+      --surface: #1a262e;
+      --surface-soft: #202f38;
+      --text: #ecf3f6;
+      --muted: #b1c1ca;
+      --line: #344852;
+      --accent: #8bc7e2;
+      --accent-strong: #b3def0;
+      --accent-soft: #253e4a;
+      --green-soft: #253a35;
+      --gold-soft: #403a2d;
+      --shadow: 0 14px 40px rgba(0, 0, 0, .24);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 18px); }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); line-height: 1.65; transition: background .2s, color .2s; }
+    button, a { font: inherit; }
+    button { color: inherit; }
+    a { color: var(--accent-strong); }
+    .skip-link { position: fixed; z-index: 20; top: 8px; left: 8px; padding: 10px 14px; background: var(--surface); border-radius: 9px; transform: translateY(-150%); }
+    .skip-link:focus { transform: none; }
+    .topbar { height: var(--header-height); display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 10; padding: 0 clamp(14px, 4vw, 40px); background: color-mix(in srgb, var(--surface) 92%, transparent); border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); }
+    .icon-button, .plain-button { border: 1px solid var(--line); background: var(--surface); border-radius: 12px; min-height: 42px; cursor: pointer; }
+    .icon-button { width: 44px; display: grid; place-items: center; flex: 0 0 auto; }
+    .plain-button { padding: 8px 13px; font-weight: 650; color: var(--text); }
+    .icon-button:hover, .plain-button:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .hamburger { width: 19px; height: 14px; position: relative; border-top: 2px solid currentColor; border-bottom: 2px solid currentColor; }
+    .hamburger::after { content: ""; position: absolute; top: 5px; left: 0; width: 100%; border-top: 2px solid currentColor; }
+    .brand { min-width: 0; flex: 1; font-weight: 760; letter-spacing: -.02em; line-height: 1.2; }
+    .brand small { display: block; color: var(--muted); font-weight: 500; font-size: .73rem; letter-spacing: 0; margin-top: 3px; }
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .drawer-backdrop { position: fixed; inset: var(--header-height) 0 0; z-index: 8; background: rgba(10, 20, 26, .38); opacity: 0; pointer-events: none; transition: opacity .2s; }
+    .drawer { position: fixed; z-index: 9; top: var(--header-height); bottom: 0; left: 0; width: min(320px, 88vw); padding: 22px 16px; overflow-y: auto; background: var(--surface); border-right: 1px solid var(--line); box-shadow: var(--shadow); transform: translateX(-105%); transition: transform .22s ease; }
+    body.menu-open .drawer { transform: translateX(0); }
+    body.menu-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
+    .drawer-heading { margin: 2px 10px 14px; font-size: .78rem; font-weight: 750; letter-spacing: .09em; color: var(--muted); text-transform: uppercase; }
+    .module-link { width: 100%; display: flex; align-items: start; gap: 12px; text-align: left; padding: 11px 12px; border: 0; border-radius: 12px; color: var(--text); background: transparent; cursor: pointer; }
+    .module-link:hover { background: var(--surface-soft); }
+    .module-link[aria-current="page"] { background: var(--accent-soft); color: var(--accent-strong); font-weight: 700; }
+    .module-number { width: 26px; height: 26px; flex: 0 0 26px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-soft); font-size: .8rem; }
+    .module-link[aria-current="page"] .module-number { background: var(--accent); color: #fff; }
+    .module-label { font-size: .95rem; line-height: 1.35; padding-top: 3px; }
+    main { width: min(940px, calc(100% - 32px)); margin: 34px auto 60px; }
+    .hero { padding: clamp(24px, 5vw, 48px); border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(135deg, var(--accent-soft), var(--surface) 68%); box-shadow: var(--shadow); }
+    .eyebrow { color: var(--accent-strong); font-weight: 750; letter-spacing: .1em; text-transform: uppercase; font-size: .76rem; }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.12; letter-spacing: -.04em; margin: 12px 0; }
+    .hero p { color: var(--muted); max-width: 68ch; margin: 0; font-size: 1.06rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 23px; }
+    .pill { border: 1px solid var(--line); background: var(--surface); padding: 5px 11px; border-radius: 999px; font-size: .82rem; color: var(--muted); }
+    .flow-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 22px 0 0; }
+    .flow-item { min-height: 78px; padding: 14px; position: relative; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); font-weight: 700; font-size: .92rem; }
+    .flow-item span { display: block; color: var(--muted); font-size: .75rem; font-weight: 500; margin-top: 3px; }
+    .flow-item:not(:last-child)::after { content: "→"; position: absolute; right: -12px; top: 25px; z-index: 1; color: var(--accent); font-size: 1.2rem; }
+    .page-card { margin-top: 24px; padding: clamp(22px, 4vw, 38px); border: 1px solid var(--line); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); }
+    .page-card[hidden] { display: none; }
+    .page-kicker { color: var(--accent-strong); font-size: .78rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+    h2 { font-size: clamp(1.55rem, 3vw, 2.1rem); line-height: 1.2; margin: 7px 0 16px; letter-spacing: -.025em; }
+    h3 { font-size: 1.08rem; margin: 0 0 8px; }
+    p { margin: 0 0 13px; }
+    .lead { max-width: 75ch; color: var(--muted); font-size: 1.04rem; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 20px 0; }
+    .info-card { padding: 18px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface-soft); }
+    .info-card p:last-child, .info-card ul:last-child { margin-bottom: 0; }
+    ul, ol { padding-left: 1.25rem; margin: 9px 0 15px; }
+    li { padding-left: 3px; margin: 5px 0; }
+    .callout { padding: 16px 18px; margin: 18px 0; border-left: 4px solid var(--accent); border-radius: 0 13px 13px 0; background: var(--accent-soft); }
+    .callout.green { border-color: #5f9b82; background: var(--green-soft); }
+    .callout.gold { border-color: #b18b4d; background: var(--gold-soft); }
+    .process { list-style: none; counter-reset: item; padding: 0; display: grid; gap: 10px; }
+    .process li { counter-increment: item; position: relative; padding: 13px 16px 13px 54px; margin: 0; border: 1px solid var(--line); border-radius: 13px; background: var(--surface-soft); }
+    .process li::before { content: counter(item); position: absolute; left: 15px; top: 12px; width: 27px; height: 27px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: var(--accent); font-size: .83rem; font-weight: 750; }
+    .process strong { display: block; margin-bottom: 2px; }
+    .table-wrap { overflow-x: auto; margin: 18px 0; border: 1px solid var(--line); border-radius: 13px; }
+    table { width: 100%; border-collapse: collapse; min-width: 500px; }
+    th, td { padding: 12px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    th { background: var(--surface-soft); font-size: .9rem; }
+    tr:last-child td { border-bottom: 0; }
+    code { padding: .12em .4em; border-radius: 5px; background: var(--surface-soft); font-size: .92em; }
+    .page-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 22px; }
+    .page-nav .plain-button { min-height: 46px; }
+    .page-nav .next { justify-self: end; }
+    .page-count { color: var(--muted); font-size: .85rem; text-align: center; }
+    .top-link { color: var(--accent-strong); text-decoration: none; font-weight: 650; white-space: nowrap; }
+    .top-link:hover { text-decoration: underline; }
+    footer { border-top: 1px solid var(--line); background: var(--surface); color: var(--muted); padding: 22px 16px 28px; text-align: center; font-size: .86rem; }
+    footer strong { color: var(--text); }
+    .footer-line + .footer-line { margin-top: 4px; }
+    :focus-visible { outline: 3px solid #78b9d5; outline-offset: 3px; }
+    @media (max-width: 650px) {
+      :root { --header-height: 62px; }
+      .topbar { gap: 9px; padding: 0 12px; }
+      .brand { font-size: .92rem; }
+      .brand small { font-size: .67rem; }
+      .header-actions { gap: 6px; }
+      .plain-button { padding: 7px 9px; min-height: 40px; font-size: .88rem; }
+      .icon-button { width: 42px; min-height: 42px; }
+      main { width: min(100% - 22px, 940px); margin-top: 16px; }
+      .hero, .page-card { border-radius: 18px; }
+      .flow-strip { grid-template-columns: repeat(2, 1fr); }
+      .flow-item:not(:last-child)::after { display: none; }
+      .grid { grid-template-columns: 1fr; }
+      .page-nav { grid-template-columns: 1fr 1fr; }
+      .page-count { grid-column: 1 / -1; grid-row: 1; }
+      .page-nav .next { justify-self: stretch; }
+      .page-nav .plain-button { width: 100%; }
+      .page-nav .top-link { grid-column: 1 / -1; text-align: center; padding: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <header class="topbar" id="top">
+    <button class="icon-button" id="menuToggle" type="button" aria-label="Open module menu" aria-expanded="false" aria-controls="moduleDrawer"><span class="hamburger" aria-hidden="true"></span></button>
+    <div class="brand" data-i18n="brand">Business News Analysis <small>EMI Term Project</small></div>
+    <div class="header-actions">
+      <button class="plain-button" id="languageToggle" type="button" aria-label="Switch language">繁中</button>
+      <button class="plain-button" id="themeToggle" type="button" aria-label="Switch to dark theme"><span aria-hidden="true">☾</span> <span data-i18n="themeLight">Light</span></button>
+    </div>
+  </header>
+  <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+  <nav class="drawer" id="moduleDrawer" aria-label="Modules" data-i18n-aria="modulesLabel">
+    <p class="drawer-heading" data-i18n="modulesHeading">Project modules</p>
+    <div id="moduleLinks"></div>
+  </nav>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="pageTitle">
+      <div class="eyebrow" data-i18n="eyebrow">A practical project guide</div>
+      <h1 id="pageTitle" data-i18n="heroTitle">From business news to a validated product</h1>
+      <p data-i18n="heroIntro">A systematic, structured, evidence-led workflow for analyzing a business issue, defining value, documenting requirements, and delivering a minimum viable product.</p>
+      <div class="meta-row"><span class="pill" data-i18n="course">EMI · Term Project</span><span class="pill">11/25/26</span><span class="pill" data-i18n="workflow">Research → Product → Learning</span></div>
+      <div class="flow-strip" aria-label="Workflow overview">
+        <div class="flow-item" data-flow="1">01 · Analyze<span data-i18n="flow1">Problem and evidence</span></div>
+        <div class="flow-item" data-flow="2">02 · Assess<span data-i18n="flow2">Market and value</span></div>
+        <div class="flow-item" data-flow="3">03 · Specify<span data-i18n="flow3">Requirements and MVP</span></div>
+        <div class="flow-item" data-flow="4">04 · Deliver<span data-i18n="flow4">Verify and improve</span></div>
+      </div>
+    </section>
+
+    <section id="modulePage" class="page-card" aria-live="polite" aria-atomic="true"></section>
+    <nav class="page-nav" aria-label="Page navigation" data-i18n-aria="pageNavLabel">
+      <button class="plain-button previous" id="previousButton" type="button">← <span data-i18n="previous">Previous</span></button>
+      <span class="page-count" id="pageCount"></span>
+      <button class="plain-button next" id="nextButton" type="button"><span data-i18n="next">Next</span> →</button>
+      <a class="top-link" href="#top" data-i18n="backTop">↑ Return to the top</a>
+    </nav>
+  </main>
+
+  <footer>
+    <div class="footer-line"><strong data-i18n="architect">Architect: Prof. Shihmin Lo</strong></div>
+    <div class="footer-line"><span data-i18n="version">Version</span> 1.0.0 · <span data-i18n="copyright">© 2026 · All rights reserved</span></div>
+  </footer>
+
+  <script>
+    (() => {
+      const translations = {
+        en: {
+          skip: 'Skip to content', brand: 'Business News Analysis <small>EMI Term Project</small>', modulesLabel: 'Modules', modulesHeading: 'Project modules',
+          themeLight: 'Light', themeDark: 'Dark', eyebrow: 'A practical project guide', heroTitle: 'From business news to a validated product',
+          heroIntro: 'A systematic, structured, evidence-led workflow for analyzing a business issue, defining value, documenting requirements, and delivering a minimum viable product.',
+          course: 'EMI · Term Project', workflow: 'Research → Product → Learning', flow1: 'Problem and evidence', flow2: 'Market and value', flow3: 'Requirements and MVP', flow4: 'Verify and improve',
+          previous: 'Previous', next: 'Next', backTop: '↑ Return to the top', pageNavLabel: 'Page navigation', architect: 'Architect: Prof. Shihmin Lo', version: 'Version', copyright: '© 2026 · All rights reserved',
+          menuOpen: 'Open module menu', menuClose: 'Close module menu', switchDark: 'Switch to dark theme', switchLight: 'Switch to light theme',
+          modules: [
+            { title: 'Project overview', kicker: 'START HERE', heading: 'Project overview', intro: 'Analyze a business-news item, identify a meaningful problem and market need, then turn evidence into a product opportunity and a clear plan.', content: `<div class="callout"><strong>Project context</strong><br>Business News Analysis · EMI (English as a Medium of Instruction) · Term Project · 11/25/26</div><h3>Project outcome</h3><p>Produce a concise, evidence-based analysis and a Product Requirements Document (PRD) that can guide a small, testable product (MVP).</p><ol class="process"><li><strong>Understand</strong>Choose a business-news item and frame its central problem.</li><li><strong>Investigate</strong>Break the issue into parts, research relationships, and record evidence.</li><li><strong>Define value</strong>Connect demand, supply, consumers, producers, and a possible product.</li><li><strong>Specify</strong>Write requirements and verification criteria in a PRD.</li><li><strong>Deliver and learn</strong>Build and verify an MVP, deploy it, collect feedback, and improve.</li></ol><div class="callout green"><strong>Working principles</strong><br>Be systematic, structured, process-oriented, and evidence-led.</div>` },
+            { title: 'Business news analysis', kicker: '01 · ANALYZE', heading: 'Frame the issue and investigate', intro: 'Move from a news story to a well-defined problem. Separate the issue into components before drawing conclusions.', content: `<div class="grid"><article class="info-card"><h3>1. Define the problem</h3><ul><li>What happened, and who is affected?</li><li>What demand, need, or opportunity is involved?</li><li>What specific question should the analysis answer?</li></ul></article><article class="info-card"><h3>2. Separate components</h3><ul><li>People, organizations, and stakeholders</li><li>Products, services, processes, and resources</li><li>Causes, effects, constraints, and unknowns</li></ul></article></div><h3>3. Investigate with evidence</h3><p>Consult credible sources, compare perspectives, distinguish facts from assumptions, and note what remains uncertain.</p><div class="callout"><strong>Look for potential relationships.</strong><br>Ask how one part may affect another. Record the evidence that supports each connection rather than treating correlation as proof of cause.</div><h3>4. Recombine into insights</h3><p>Bring the components and evidence back together in a mind map or structured outline. Summarize what the evidence means for the problem and its stakeholders.</p>` },
+            { title: 'Market and product value', kicker: '02 · ASSESS', heading: 'Connect demand, supply, and value', intro: 'A product or service creates a market offer: producers provide it, consumers use or buy it, and value depends on how well it meets a real need.', content: `<div class="grid"><article class="info-card"><h3>Demand · consumers</h3><p>Who has the need? How important is it? What evidence shows that people would use or pay for a solution?</p></article><article class="info-card"><h3>Supply · producers</h3><p>Who can provide the solution? What capabilities, resources, partners, or constraints shape delivery?</p></article></div><div class="callout green"><strong>Value test</strong><br>Does the proposed product solve the identified problem in a way that matters to its intended users?</div><h3>Possible product forms</h3><p>App, software application, website, mobile or desktop application, or SaaS (Software as a Service). A web product may include a front end and back end; SPA and PWA are possible application approaches.</p><div class="callout gold"><strong>Start with the user need, not the technology.</strong><br>Choose a format only after the problem, users, and value proposition are clear.</div>` },
+            { title: 'Evaluate the solution', kicker: 'DECISION CHECK', heading: 'Test effectiveness before optimizing efficiency', intro: 'Use two distinct questions to evaluate the proposed solution. Both matter, but first verify that the solution achieves its purpose.', content: `<div class="grid"><article class="info-card"><h3>✓ Effectiveness</h3><p>Does the solution reach the intended goal or solve the user’s problem?</p><p><strong>Evidence:</strong> goal completion, user outcome, or acceptance criteria.</p></article><article class="info-card"><h3>Efficiency</h3><p>Can the solution achieve the outcome with less input, or produce more useful output for the same input?</p><p><strong>Evidence:</strong> time, cost, effort, or resource use.</p></article></div><ol class="process"><li><strong>Set the outcome</strong>State the intended user and result.</li><li><strong>Check effectiveness</strong>Verify the result against evidence and success criteria.</li><li><strong>Improve efficiency</strong>Once the solution works, reduce unnecessary effort or resource use.</li></ol><div class="callout"><strong>Remember</strong><br>A fast or inexpensive product is not successful if it fails to solve the problem.</div>` },
+            { title: 'Product requirements document', kicker: '03 · SPECIFY', heading: 'Turn analysis into a PRD', intro: 'A Product Requirements Document (PRD) translates the evidence and product decision into a shared, verifiable plan.', content: `<div class="table-wrap"><table><thead><tr><th>PRD section</th><th>Questions to answer</th></tr></thead><tbody><tr><td>Problem and context</td><td>What is happening? What evidence supports the problem?</td></tr><tr><td>Users and demand</td><td>Who needs this? What are their goals and constraints?</td></tr><tr><td>Goals and value</td><td>What outcome should the product deliver, and how is success measured?</td></tr><tr><td>Scope and functions</td><td>What is included in the MVP? What is deliberately excluded?</td></tr><tr><td>Requirements</td><td>What must the product do? What quality, access, or performance needs apply?</td></tr><tr><td>Verification</td><td>How will each requirement be tested or accepted?</td></tr><tr><td>Risks and delivery</td><td>What assumptions, dependencies, and deployment steps matter?</td></tr></tbody></table></div><div class="callout gold"><strong>Make requirements verifiable.</strong><br>Prefer observable acceptance criteria over vague words such as “easy,” “fast,” or “user-friendly.”</div>` },
+            { title: 'MVP, verification, and deployment', kicker: '04 · DELIVER', heading: 'Build a minimum viable product', intro: 'An MVP (Minimum Viable Product) is the smallest useful product that can test the core value proposition with real users or realistic feedback.', content: `<ol class="process"><li><strong>Choose the smallest test</strong>Include only the core function needed to test the main assumption.</li><li><strong>Build the product slice</strong>Plan the interface and any required services, data, or back-end components.</li><li><strong>Verify against the PRD</strong>Test each requirement and record results, defects, and unresolved questions.</li><li><strong>Deploy and observe</strong>Make the product available to its intended audience and collect feedback responsibly.</li><li><strong>Learn and iterate</strong>Use results to revise assumptions, requirements, and the next product version.</li></ol><div class="callout green"><strong>Example delivery sequence</strong><br>Research → PRD → MVP → verification → deployment → feedback → iteration</div><p>Possible delivery formats include a responsive web app, a single-page application, or a visual artifact such as an SVG. GitHub Pages may be used for suitable static web projects.</p>` },
+            { title: 'Team workflow and design', kicker: 'COLLABORATE', heading: 'Coordinate work and present it clearly', intro: 'Keep team work traceable through a shared session, explicit task ownership, and concise handoff notes.', content: `<div class="grid"><article class="info-card"><h3>Team session</h3><p>Use a shared working session or agreed collaboration space. Record decisions, open questions, and the next owner so work can continue without losing context.</p></article><article class="info-card"><h3>Handoff</h3><p>A handoff note should state the current status, completed work, evidence or sources, unresolved items, and the next actionable step.</p></article></div><h3>Suggested team cycle</h3><ol class="process"><li><strong>Assign</strong>Agree on tasks, owners, and expected outputs.</li><li><strong>Research</strong>Gather sources and share evidence.</li><li><strong>Analyze</strong>Compare findings and identify relationships.</li><li><strong>Document</strong>Update the mind map, summary, and PRD.</li><li><strong>Handoff</strong>Record decisions and next steps in a shared Markdown file.</li></ol><div class="callout"><strong>Presentation principles</strong><br>Keep the interface clear and direct, use light colours with sufficient contrast, and make the layout responsive for phones and larger displays. Provide scalable visuals where useful.</div>` }
+          ]
+        },
+        zh: {
+          skip: '跳至主要內容', brand: '商業新聞分析 <small>EMI 學期專題</small>', modulesLabel: '專題模組', modulesHeading: '專題模組',
+          themeLight: '淺色', themeDark: '深色', eyebrow: '實用專題指南', heroTitle: '從商業新聞到經驗證的產品',
+          heroIntro: '以系統化、有架構、以證據為本的流程，分析商業議題、定義價值、撰寫需求，並交付最小可行產品。',
+          course: 'EMI · 學期專題', workflow: '研究 → 產品 → 學習', flow1: '問題與證據', flow2: '市場與價值', flow3: '需求與 MVP', flow4: '驗證與改進',
+          previous: '上一頁', next: '下一頁', backTop: '↑ 返回頂端', pageNavLabel: '頁面導覽', architect: '架構設計：羅世銘教授', version: '版本', copyright: '© 2026 · 版權所有',
+          menuOpen: '開啟模組選單', menuClose: '關閉模組選單', switchDark: '切換至深色主題', switchLight: '切換至淺色主題',
+          modules: [
+            { title: '專題概覽', kicker: '從這裡開始', heading: '專題概覽', intro: '分析一則商業新聞，找出具意義的問題與市場需求，再將證據轉化為產品機會與明確計畫。', content: `<div class="callout"><strong>專題背景</strong><br>商業新聞分析 · EMI（以英語為授課媒介）· 學期專題 · 11/25/26</div><h3>專題成果</h3><p>完成精簡且以證據為本的分析，以及可用來引導小型可測試產品（MVP）的產品需求文件（PRD）。</p><ol class="process"><li><strong>理解</strong>選擇一則商業新聞，界定其核心問題。</li><li><strong>調查</strong>拆解議題、研究各部分的關係，並記錄證據。</li><li><strong>定義價值</strong>連結需求、供給、消費者、生產者與可能的產品。</li><li><strong>規格化</strong>在 PRD 中撰寫需求與驗證標準。</li><li><strong>交付並學習</strong>建置及驗證 MVP、部署、收集回饋並改進。</li></ol><div class="callout green"><strong>工作原則</strong><br>採用系統化、有架構、以流程為導向，並以證據為本的方法。</div>` },
+            { title: '商業新聞分析', kicker: '01 · 分析', heading: '界定議題並進行調查', intro: '從新聞報導進一步形成明確問題。先將議題拆解成不同組成，再下結論。', content: `<div class="grid"><article class="info-card"><h3>1. 定義問題</h3><ul><li>發生了什麼事？誰受到影響？</li><li>涉及什麼需求、需要或機會？</li><li>分析應回答哪一個具體問題？</li></ul></article><article class="info-card"><h3>2. 拆解組成</h3><ul><li>人員、組織與利害關係人</li><li>產品、服務、流程與資源</li><li>原因、影響、限制與未知事項</li></ul></article></div><h3>3. 以證據調查</h3><p>參考可信來源、比較不同觀點、區分事實與假設，並記下仍不確定的部分。</p><div class="callout"><strong>尋找潛在關係。</strong><br>思考各部分如何互相影響。記錄支持每項關聯的證據；不要將相關性直接當成因果關係的證明。</div><h3>4. 整合並形成洞見</h3><p>將各項組成與證據重新整合，以心智圖或有架構的大綱呈現，並說明證據對問題及利害關係人的意義。</p>` },
+            { title: '市場與產品價值', kicker: '02 · 評估', heading: '連結需求、供給與價值', intro: '產品或服務形成市場上的供給：生產者提供產品，消費者使用或購買，而價值取決於產品滿足實際需求的程度。', content: `<div class="grid"><article class="info-card"><h3>需求 · 消費者</h3><p>誰有這項需求？需求有多重要？有什麼證據顯示人們會使用或付費取得解決方案？</p></article><article class="info-card"><h3>供給 · 生產者</h3><p>誰能提供解決方案？有哪些能力、資源、合作夥伴或限制會影響交付？</p></article></div><div class="callout green"><strong>價值檢核</strong><br>所提出的產品是否能以對目標使用者有意義的方式解決已辨識的問題？</div><h3>可能的產品形式</h3><p>App、軟體應用程式、網站、行動或桌面應用程式，或 SaaS（軟體即服務）。網路產品可能包含前端與後端；SPA 與 PWA 是可採用的應用程式形式。</p><div class="callout gold"><strong>從使用者需求出發，而非先選技術。</strong><br>先釐清問題、使用者與價值主張，再決定產品形式。</div>` },
+            { title: '評估解決方案', kicker: '決策檢核', heading: '先檢驗有效性，再改善效率', intro: '以兩個不同問題評估解決方案。兩者都重要，但應先確認解決方案能否達成目的。', content: `<div class="grid"><article class="info-card"><h3>✓ 有效性</h3><p>解決方案是否達成預期目標或解決使用者問題？</p><p><strong>證據：</strong>目標完成度、使用者成果或驗收標準。</p></article><article class="info-card"><h3>效率</h3><p>能否減少投入來達成成果，或以相同投入產生更多有用產出？</p><p><strong>證據：</strong>時間、成本、心力或資源使用情況。</p></article></div><ol class="process"><li><strong>設定成果</strong>說明目標使用者及預期結果。</li><li><strong>檢驗有效性</strong>依證據與成功標準確認結果。</li><li><strong>改善效率</strong>確認方案有效後，再減少不必要的工作或資源耗用。</li></ol><div class="callout"><strong>請記得</strong><br>如果產品無法解決問題，即使快速或成本低，也不算成功。</div>` },
+            { title: '產品需求文件', kicker: '03 · 規格化', heading: '將分析轉化為 PRD', intro: '產品需求文件（PRD）將分析證據與產品決策轉化為團隊共用且可驗證的計畫。', content: `<div class="table-wrap"><table><thead><tr><th>PRD 章節</th><th>應回答的問題</th></tr></thead><tbody><tr><td>問題與背景</td><td>發生什麼事？有哪些證據支持此問題？</td></tr><tr><td>使用者與需求</td><td>誰需要這項產品？他們的目標與限制為何？</td></tr><tr><td>目標與價值</td><td>產品應帶來什麼成果？如何衡量成功？</td></tr><tr><td>範圍與功能</td><td>MVP 包含什麼？哪些內容明確不納入？</td></tr><tr><td>需求</td><td>產品必須執行什麼功能？有哪些品質、存取或效能需求？</td></tr><tr><td>驗證</td><td>如何測試或驗收各項需求？</td></tr><tr><td>風險與交付</td><td>有哪些假設、相依性與部署步驟？</td></tr></tbody></table></div><div class="callout gold"><strong>讓需求可以驗證。</strong><br>優先使用可觀察的驗收標準，避免只使用「簡單」、「快速」或「友善」等模糊詞語。</div>` },
+            { title: 'MVP、驗證與部署', kicker: '04 · 交付', heading: '建置最小可行產品', intro: 'MVP（最小可行產品）是能以真實使用者或接近實際情境的回饋，測試核心價值主張的最小實用產品。', content: `<ol class="process"><li><strong>選擇最小測試</strong>只納入測試主要假設所需的核心功能。</li><li><strong>建置產品切片</strong>規劃介面，以及必要的服務、資料或後端元件。</li><li><strong>依 PRD 驗證</strong>逐項測試需求，記錄結果、缺陷與尚未解決的問題。</li><li><strong>部署並觀察</strong>讓目標對象使用產品，並適當收集回饋。</li><li><strong>學習並迭代</strong>依據結果修正假設、需求與下一版產品。</li></ol><div class="callout green"><strong>交付順序範例</strong><br>研究 → PRD → MVP → 驗證 → 部署 → 回饋 → 迭代</div><p>可能的交付形式包括響應式網頁應用程式、單頁應用程式，或 SVG 等視覺成果。適合的靜態網站專案可使用 GitHub Pages。</p>` },
+            { title: '團隊流程與設計', kicker: '協作', heading: '協調工作並清楚呈現', intro: '透過共用工作階段、明確的任務負責人，以及精簡的交接紀錄，讓團隊工作有跡可循。', content: `<div class="grid"><article class="info-card"><h3>團隊工作階段</h3><p>使用共用工作階段或約定的協作空間。記錄決策、未解問題與下一位負責人，讓工作延續時不會失去脈絡。</p></article><article class="info-card"><h3>交接</h3><p>交接紀錄應說明目前狀態、已完成工作、證據或來源、未解事項，以及下一個可執行步驟。</p></article></div><h3>建議的團隊循環</h3><ol class="process"><li><strong>分派</strong>確認任務、負責人與預期成果。</li><li><strong>研究</strong>蒐集來源並分享證據。</li><li><strong>分析</strong>比較發現並辨識關係。</li><li><strong>記錄</strong>更新心智圖、摘要與 PRD。</li><li><strong>交接</strong>將決策與下一步記錄在共用 Markdown 檔案。</li></ol><div class="callout"><strong>呈現原則</strong><br>介面清楚直接，使用對比足夠的淺色系，並讓版面能適應手機與較大的螢幕。適時提供可縮放的視覺素材。</div>` }
+          ]
+        }
+      };
+
+      const root = document.documentElement;
+      const body = document.body;
+      const page = document.getElementById('modulePage');
+      const links = document.getElementById('moduleLinks');
+      const menuToggle = document.getElementById('menuToggle');
+      const backdrop = document.getElementById('drawerBackdrop');
+      let language = localStorage.getItem('bna-language') || 'en';
+      let theme = localStorage.getItem('bna-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      let current = 0;
+
+      function applyStaticTranslations() {
+        document.querySelectorAll('[data-i18n]').forEach(node => {
+          const value = translations[language][node.dataset.i18n];
+          if (value !== undefined) node.innerHTML = value;
+        });
+        document.querySelectorAll('[data-i18n-aria]').forEach(node => {
+          const value = translations[language][node.dataset.i18nAria];
+          if (value) node.setAttribute('aria-label', value);
+        });
+        document.documentElement.lang = language === 'zh' ? 'zh-Hant' : 'en';
+        document.getElementById('languageToggle').textContent = language === 'en' ? '繁中' : 'EN';
+      }
+
+      function render() {
+        const t = translations[language];
+        current = Math.max(0, Math.min(current, t.modules.length - 1));
+        const module = t.modules[current];
+        page.innerHTML = `<div class="page-kicker">${module.kicker}</div><h2>${module.heading}</h2><p class="lead">${module.intro}</p>${module.content}`;
+        links.innerHTML = t.modules.map((item, index) => `<button class="module-link" type="button" data-module="${index}" aria-current="${index === current ? 'page' : 'false'}"><span class="module-number">${String(index + 1).padStart(2, '0')}</span><span class="module-label">${item.title}</span></button>`).join('');
+        links.querySelectorAll('[data-module]').forEach(button => button.addEventListener('click', () => goTo(Number(button.dataset.module)));
+        document.getElementById('pageCount').textContent = `${String(current + 1).padStart(2, '0')} / ${String(t.modules.length).padStart(2, '0')}`;
+        document.getElementById('previousButton').disabled = current === 0;
+        document.getElementById('nextButton').disabled = current === t.modules.length - 1;
+        document.getElementById('previousButton').style.opacity = current === 0 ? '.5' : '1';
+        document.getElementById('nextButton').style.opacity = current === t.modules.length - 1 ? '.5' : '1';
+        document.getElementById('pageTitle').textContent = language === 'en' ? 'From business news to a validated product' : '從商業新聞到經驗證的產品';
+        document.getElementById('menuToggle').setAttribute('aria-label', body.classList.contains('menu-open') ? t.menuClose : t.menuOpen);
+        history.replaceState(null, '', `#module-${current + 1}`);
+      }
+
+      function goTo(index) {
+        current = (index + translations[language].modules.length) % translations[language].modules.length;
+        render();
+        closeMenu();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      function closeMenu() {
+        body.classList.remove('menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', translations[language].menuOpen);
+      }
+      function setTheme(next) {
+        theme = next;
+        root.dataset.theme = theme;
+        localStorage.setItem('bna-theme', theme);
+        const t = translations[language];
+        document.getElementById('themeToggle').innerHTML = theme === 'dark' ? `<span aria-hidden="true">☀</span> <span data-i18n="themeDark">${t.themeDark}</span>` : `<span aria-hidden="true">☾</span> <span data-i18n="themeLight">${t.themeLight}</span>`;
+        document.getElementById('themeToggle').setAttribute('aria-label', theme === 'dark' ? t.switchLight : t.switchDark);
+      }
+
+      document.getElementById('previousButton').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('nextButton').addEventListener('click', () => goTo(current + 1));
+      menuToggle.addEventListener('click', () => {
+        const open = !body.classList.contains('menu-open');
+        body.classList.toggle('menu-open', open);
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? translations[language].menuClose : translations[language].menuOpen);
+      });
+      backdrop.addEventListener('click', closeMenu);
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
+      document.getElementById('languageToggle').addEventListener('click', () => {
+        language = language === 'en' ? 'zh' : 'en';
+        localStorage.setItem('bna-language', language);
+        applyStaticTranslations();
+        setTheme(theme);
+        render();
+      });
+      document.getElementById('themeToggle').addEventListener('click', () => setTheme(theme === 'dark' ? 'light' : 'dark'));
+      window.addEventListener('hashchange', () => {
+        const match = location.hash.match(/^#module-(\d+)$/);
+        if (match) { current = Number(match[1]) - 1; render(); }
+      });
+
+      const hashMatch = location.hash.match(/^#module-(\d+)$/);
+      if (hashMatch) current = Number(hashMatch[1]) - 1;
+      root.dataset.theme = theme;
+      applyStaticTranslations();
+      setTheme(theme);
+      render();
+    })();
+  </script>
+</body>
+</html>
